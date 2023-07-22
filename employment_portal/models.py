@@ -5,28 +5,14 @@ from django.contrib.auth.models import AbstractUser, Permission, Group
 # Create your models here.
 class ApplicantUser(AbstractUser):
     identification_number = models.CharField(max_length=20, unique=True)
-    profile_description = models.TextField(blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    profile_description = models.TextField(blank=True)
+    phone_number = models.CharField(max_length=20, blank=True)
 
     def __str__(self) -> str:
         return self.username
 
     def get_full_name(self) -> str:
-        return self.first_name + " " + self.last_name
-
-    groups = models.ManyToManyField(
-        Group,
-        verbose_name="user groups",
-        blank=True,
-        related_name="applicant_users",
-    )
-
-    user_permissions = models.ManyToManyField(
-        Permission,
-        verbose_name="user permissions",
-        blank=True,
-        related_name="applicant_users",
-    )
+        return self.username + " " + self.last_name
 
 
 class Company(models.Model):

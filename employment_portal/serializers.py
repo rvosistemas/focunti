@@ -8,12 +8,21 @@ class ApplicantUserSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "username",
+            "email",
+            "password",
             "first_name",
             "last_name",
             "identification_number",
             "profile_description",
             "phone_number",
         ]
+
+    extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop("password")
+        user = ApplicantUser.objects.create_user(password=password, **validated_data)
+        return user
 
 
 class CompanySerializer(serializers.ModelSerializer):
