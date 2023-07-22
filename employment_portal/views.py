@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -68,3 +68,88 @@ class ApplicantUserCreateView(CreateAPIView):
         fake_email = send_registration_email(user.username, user.email)
         response = {"message": "User created successfully", "data": serializer.data, "email": fake_email}
         return Response(response, status=status.HTTP_201_CREATED)
+
+
+class CompanyCreateView(CreateAPIView):
+    """
+    View for creating a Company.
+
+    This view allows creating a new Company object.
+
+    Supported HTTP methods:
+    - POST: Creates a new Company.
+
+    Attributes:
+    - queryset (QuerySet): A QuerySet that defines the set of Company objects available for the view.
+    - serializer_class (Serializer): The serializer used to convert input data into Company instances and vice versa.
+
+    Methods:
+    - perform_create(serializer): A method that is executed during the creation of a new Company.
+        It saves the new Company object.
+
+    """
+
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class OfferCreateView(CreateAPIView):
+    """
+    View for creating an Offer.
+
+    This view allows creating a new Offer object.
+
+    Supported HTTP methods:
+    - POST: Creates a new Offer.
+
+    Attributes:
+    - queryset (QuerySet): A QuerySet that defines the set of Offer objects available for the view.
+    - serializer_class (Serializer): The serializer used to convert input data into Offer instances and vice versa.
+
+    Methods:
+    - perform_create(serializer): A method that is executed during the creation of a new Offer.
+        It saves the new Offer object.
+
+    """
+
+    queryset = Offer.objects.all()
+    serializer_class = OfferSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class OfferUpdateView(UpdateAPIView):
+    """
+    View for updating an Offer.
+
+    This view allows updating an existing Offer object.
+
+    Supported HTTP methods:
+    - PUT: Updates an existing Offer.
+    - PATCH: Partially updates an existing Offer.
+
+    Attributes:
+    - queryset (QuerySet): A QuerySet that defines the set of Offer objects available for the view.
+    - serializer_class (Serializer): The serializer used to convert input data into Offer instances and vice versa.
+
+    Methods:
+    - perform_update(serializer): A method that is executed during the update of an existing Offer.
+        It saves the updated Offer object.
+
+    """
+
+    queryset = Offer.objects.all()
+    serializer_class = OfferSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_update(self, serializer):
+        serializer.save()
