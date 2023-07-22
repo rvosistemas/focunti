@@ -65,5 +65,6 @@ class ApplicantUserCreateView(CreateAPIView):
 
     def perform_create(self, serializer):
         user = serializer.save()
-        send_registration_email(user.username, user.email)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        fake_email = send_registration_email(user.username, user.email)
+        response = {"message": "User created successfully", "data": serializer.data, "email": fake_email}
+        return Response(response, status=status.HTTP_201_CREATED)
