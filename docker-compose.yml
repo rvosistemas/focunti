@@ -8,7 +8,7 @@ services:
   db:
     image: postgres:15.3
     hostname: ${POSTGRES_HOSTNAME}
-    container_name: postgres_db
+    container_name: ${POSTGRES_CONTAINER_NAME}
     ports:
       - ${POSTGRES_DOCKER_PORT}:${POSTGRES_PORT} # 54320 add zero for connection to db manager (dbeaber) to docker
     environment:
@@ -22,7 +22,7 @@ services:
 
   web:
     hostname: ${APP_HOSTNAME}
-    container_name: django_app
+    container_name: ${DJANGO_CONTAINER_NAME}
     tty: true
     build: .
     command: python manage.py runserver ${APP_HOST}:${APP_PORT}
