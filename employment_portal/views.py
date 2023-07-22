@@ -153,3 +153,31 @@ class OfferUpdateView(UpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save()
+
+
+class PostulationCreateView(CreateAPIView):
+    """
+    View for creating a Postulation.
+
+    This view allows creating a new Postulation object.
+
+    Supported HTTP methods:
+    - POST: Creates a new Postulation.
+
+    Attributes:
+    - queryset (QuerySet): A QuerySet that defines the set of Postulation objects available for the view.
+    - serializer_class (Serializer): The serializer used to convert input data into Postulation instances and vice versa.
+
+    Methods:
+    - perform_create(serializer): A method that is executed during the creation of a new Postulation.
+        It saves the new Postulation object.
+
+    """
+
+    queryset = Postulation.objects.all()
+    serializer_class = PostulationSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save()

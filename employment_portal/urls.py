@@ -7,6 +7,7 @@ from .views import (
     OfferCreateView,
     OfferUpdateView,
     CompanyCreateView,
+    PostulationCreateView,
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path("create-company/", CompanyCreateView.as_view(), name="company-create"),
     path("create-offer/", OfferCreateView.as_view(), name="offer-create"),
     path("update-offer/<int:pk>/", OfferUpdateView.as_view(), name="offer-update"),
+    path("create-postulation/", PostulationCreateView.as_view(), name="postulation-create"),
 ]
