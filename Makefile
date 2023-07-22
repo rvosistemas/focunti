@@ -1,6 +1,9 @@
-test_coverage_api_rest_postgres:
+SOURCE = employment_portal
+DJANGO_SETTINGS_MODULE=focunti.settings
+
+test_coverage:
 	@echo "Running tests with coverage..."
-	@coverage run --source=rest_postgres manage.py test
+	@coverage run --source=${SOURCE} manage.py test --settings=$(DJANGO_SETTINGS_MODULE)
 	@coverage report -m
 	@coverage html
 	@echo "Done."
